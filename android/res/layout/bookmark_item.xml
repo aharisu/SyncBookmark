@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:paddingLeft="6dip"
+	android:paddingTop="8dip"
+	android:paddingRight="6dip"
+	android:paddingBottom="8dip"
+	>
+	
+	<ImageView android:id="@+id_bookmarkitem/thumbnail"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:scaleType="fitCenter"
+	/>
+	
+	<TextView android:id="@+id_bookmarkitem/title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_marginTop="2dip"
+		android:singleLine="true"
+	/>
+	
+</LinearLayout>

@@ -1,0 +1,14 @@
+{
+  "name": "Sync Bookmarks",
+  "version": "1.0",
+  "description": "Android端末から送信されたブックマークデータを同期するための拡張アプリケーション",
+  "permissions": [
+    "bookmarks",
+		"http://aharisu-syncbookmarks.appspot.com/"
+  ],
+  "browser_action": {
+      "default_title": "Sync Bookmarks",
+      "default_icon": "icon.png",
+      "popup": "popup.html"
+  }
+}

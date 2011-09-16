@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>Store</servlet-name>
+		<servlet-class>aharisu.tools.SyncBookmarks.StoreServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Store</servlet-name>
+		<url-pattern>/store</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Operation</servlet-name>
+		<servlet-class>aharisu.tools.SyncBookmarks.OperationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Operation</servlet-name>
+		<url-pattern>/op/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Image</servlet-name>
+		<servlet-class>aharisu.tools.SyncBookmarks.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Image</servlet-name>
+		<url-pattern>/image</url-pattern>
+	</servlet-mapping>
+</web-app>

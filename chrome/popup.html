@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style>
+div{ color: black; }
+li{
+	font-size: small;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script>
+$(function() {
+	var FOLDER_NAME = "Sync Bookmarks";
+	createFolder(FOLDER_NAME);
+
+	$.get("http://aharisu-syncbookmarks.appspot.com/op/newer", function(data) {
+		var json = JSON.parse(data);
+		if(json.status === "success") {
+			for(var i in json.content) {
+				$('#bookmarks').append('<li>' + json.content[i].title + '</li>');
+			}
+
+			createBookmarks(FOLDER_NAME,json.content);
+		}
+	});
+});
+
+function createFolder(name) {
+	chrome.bookmarks.getChildren("2", function(nodeAry) {
+		var id = null;
+		var len = nodeAry.length;
+		for(var i = 0;i < len;++i) {
+			if(nodeAry[i].url === undefined && nodeAry[i].title === name) {
+				id = nodeAry[i].id;
+				break;
+			}
+		}
+
+		if(id === null) {
+			chrome.bookmarks.create({
+				parentId: "2",
+				title: name,
+			}, function(result) {});
+		}
+	});
+}
+
+function createBookmarks(folder, bookmarks) {
+	chrome.bookmarks.getChildren("2", function(nodeAry) {
+		var i;
+		var id = null;
+		var len = nodeAry.length;
+		for(i = 0;i < len;++i) {
+			if(nodeAry[i].url === undefined && nodeAry[i].title === folder) {
+				id = nodeAry[i].id;
+				break;
+			}
+		}
+
+		len = bookmarks.length;
+		for(i = 0;i < len; ++i) {
+			chrome.bookmarks.create( {
+				parentId: id,
+				title: bookmarks[i].title,
+				url: bookmarks[i].URL
+			}, function(result) {});
+		}
+	});
+}
+
+</script>
+
+</head>
+<body style="width: 400px">
+	<div>
+		New Added...
+		<ul id="bookmarks"></ul>
+	</div>
+</body>
+</html>

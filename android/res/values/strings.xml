@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SyncBookmarks</string>
+    <string name="send_bookmak">ブックマークを送信しますか？</string>
+    <string name="cansel">キャンセル</string>
+    <string name="ok">OK</string>
+    <string name="send_success">ブックマークを送信しました</string>
+    <string name="send_failure">ブックマークの送信に失敗しました。\n時間をおいてからもう一度実行してみてください。</string>
+</resources>
