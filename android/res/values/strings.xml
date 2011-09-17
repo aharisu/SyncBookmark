@@ -4,6 +4,26 @@
     <string name="send_bookmak">ブックマークを送信しますか？</string>
     <string name="cansel">キャンセル</string>
     <string name="ok">OK</string>
+    <string name="send_to_login">ユーザ認証へ</string>
     <string name="send_success">ブックマークを送信しました</string>
     <string name="send_failure">ブックマークの送信に失敗しました。\n時間をおいてからもう一度実行してみてください。</string>
+    <string name="send_failure_reson_auth">ユーザ認証に失敗しました</string>
+    <string name="title_not_login">ログインしてください</string>
+    <string name="title_logined">%1$sでログイン中です</string>
+    <string name="title_to_settings">ログイン画面へ</string>
+    <string name="settings_auth">認証</string>
+    <string name="settings_regster">ユーザ登録</string>
+    <string name="settings_to_auth"><u>ユーザ認証に切り替える</u></string>
+    <string name="settings_to_register"><u>ユーザ登録に切り替える</u></string>
+    <string name="settings_success_user_auth">ユーザ認証に成功しました</string>
+    <string name="settings_success_user_register">ユーザ登録に成功しました</string>
+    <string name="settings_failure_reson_io">通信に失敗しました\nネットワークの設定をみなおしてください</string>
+    <string name="settings_failure_reson_auth">ユーザ名とパスワードのどちらかがあっていません</string>
+    <string name="settings_failure_reson_register">すでに名前が使用されています</string>
+    <string name="settings_title">ユーザ情報を入力してください</string>
+    <string name="settings_user_name_label">ユーザ名</string>
+    <string name="settings_user_name_edit_hint">ユーザ名をここに入力してください</string>
+    <string name="settings_user_password_label">パスワード</string>
+    <string name="settings_user_passowrd_edit_hint">パスワードをここに入力してください</string>
+    
 </resources>

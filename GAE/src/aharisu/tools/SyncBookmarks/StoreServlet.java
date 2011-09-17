@@ -32,13 +32,6 @@ public class StoreServlet extends HttpServlet {
 		resp.setContentType("application/json; charset=UTF-8");
 		PrintWriter writer = resp.getWriter();
 		
-		String token = req.getParameter("token");
-		if(token == null || !Authorizer.AuthorizeAppToken(token)) {
-			//tokenがあっていなければ失敗ステータスを返して終了
-			writer.println(Responder.genResponse(Responder.ResponseStauts.TokenUnauthorize));
-			return;
-		}
-		
 		String title = null;
 		String url = null;
 		Blob icon = null;

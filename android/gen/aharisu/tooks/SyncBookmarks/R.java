@@ -22,20 +22,52 @@ public final class R {
         public static final int thumbnail=0x7f060000;
         public static final int title=0x7f060001;
     }
+    public static final class id_settings {
+        public static final int change_view=0x7f070004;
+        public static final int name=0x7f070001;
+        public static final int ok=0x7f070003;
+        public static final int password=0x7f070002;
+        public static final int user_setting_title=0x7f070000;
+    }
     public static final class id_syncbookmarks {
-        public static final int layout=0x7f070000;
+        public static final int layout=0x7f080000;
+    }
+    public static final class id_syncbookmarks_titlebar {
+        public static final int title=0x7f090000;
+        public static final int to_settings=0x7f090001;
     }
     public static final class layout {
         public static final int bookmark_dialog=0x7f030000;
         public static final int bookmark_item=0x7f030001;
-        public static final int syncbookmarks=0x7f030002;
+        public static final int login_and_register=0x7f030002;
+        public static final int syncbookmarks=0x7f030003;
+        public static final int syncbookmarks_titlebar=0x7f030004;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
         public static final int cansel=0x7f040002;
         public static final int ok=0x7f040003;
         public static final int send_bookmak=0x7f040001;
-        public static final int send_failure=0x7f040005;
-        public static final int send_success=0x7f040004;
+        public static final int send_failure=0x7f040006;
+        public static final int send_failure_reson_auth=0x7f040007;
+        public static final int send_success=0x7f040005;
+        public static final int send_to_login=0x7f040004;
+        public static final int settings_auth=0x7f04000b;
+        public static final int settings_failure_reson_auth=0x7f040012;
+        public static final int settings_failure_reson_io=0x7f040011;
+        public static final int settings_failure_reson_register=0x7f040013;
+        public static final int settings_regster=0x7f04000c;
+        public static final int settings_success_user_auth=0x7f04000f;
+        public static final int settings_success_user_register=0x7f040010;
+        public static final int settings_title=0x7f040014;
+        public static final int settings_to_auth=0x7f04000d;
+        public static final int settings_to_register=0x7f04000e;
+        public static final int settings_user_name_edit_hint=0x7f040016;
+        public static final int settings_user_name_label=0x7f040015;
+        public static final int settings_user_passowrd_edit_hint=0x7f040018;
+        public static final int settings_user_password_label=0x7f040017;
+        public static final int title_logined=0x7f040009;
+        public static final int title_not_login=0x7f040008;
+        public static final int title_to_settings=0x7f04000a;
     }
 }

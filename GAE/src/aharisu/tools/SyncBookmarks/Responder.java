@@ -14,17 +14,29 @@ public class Responder {
 	public enum ResponseStauts {
 		Success,
 		IllegalDataFormat,
-		TokenUnauthorize;
+		NotUniqueName,
+		AuthFailure,
+		IllegalParameter;
 		
 		public String getStatusString() {
-			return this == ResponseStauts.Success ? "success" : "failure";
+			if(this == ResponseStauts.Success) {
+				return "success";
+			} else if(this == ResponseStauts.NotUniqueName) {
+				return "already_used";
+			} else {
+				return "failure";
+			}
 		}
 		
 		public String getFailureMessage() {
-			if(this == ResponseStauts.TokenUnauthorize) {
-				return "illegal application token";
+			if(this == ResponseStauts.IllegalParameter) {
+				return "get parameter";
 			} else if(this == ResponseStauts.IllegalDataFormat) {
 				return "illegal data format";
+			} else if(this == ResponseStauts.NotUniqueName) {
+				return "name is already used";
+			} else if(this == ResponseStauts.AuthFailure) {
+				return "authentication failure";
 			} else {
 				return "unkown";
 			}

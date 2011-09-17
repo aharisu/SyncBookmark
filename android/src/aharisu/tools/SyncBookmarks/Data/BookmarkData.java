@@ -1,4 +1,4 @@
-package aharisu.tools.SyncBookmarks;
+package aharisu.tools.SyncBookmarks.Data;
 
 import android.graphics.Bitmap;
 

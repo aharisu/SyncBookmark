@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	>
+	
+	<TextView android:id="@+id_settings/user_setting_title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginTop="5dip"
+		android:layout_marginBottom="5dip"
+		android:text="@string/settings_title"
+		android:textSize="18sp"
+		/>
+		
+	<ScrollView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:fillViewport="true"
+		>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:layout_marginRight="10dip"
+			android:orientation="vertical"
+			>
+			
+			<TableLayout 
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:stretchColumns="2"
+			>
+				<TableRow>
+					<TextView 
+						android:text="@string/settings_user_name_label"
+					/>
+					<TextView 
+						android:text=":"
+					/>
+					<EditText android:id="@+id_settings/name"
+						android:inputType="text"
+						android:hint="@string/settings_user_name_edit_hint"
+						android:singleLine="true"
+					 />
+				</TableRow>
+				<TableRow>
+					<TextView 
+						android:text="@string/settings_user_password_label"
+					/>
+					<TextView 
+						android:text=":"
+					/>
+					<EditText android:id="@+id_settings/password"
+						android:inputType="textPassword"
+						android:hint="@string/settings_user_passowrd_edit_hint"
+						android:singleLine="true"
+					/>
+				</TableRow>
+			</TableLayout>
+			
+			<Button android:id="@+id_settings/ok"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:minWidth="80dip"
+				android:layout_marginTop="15dip"
+				android:layout_gravity="right"
+				android:textSize="18sp"
+				/>
+				
+			<TextView android:id="@+id_settings/change_view"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="15dip"
+				android:layout_marginBottom="10dip"
+				android:layout_gravity="center"
+				android:clickable="true"
+				android:singleLine="true"
+				android:paddingTop="4dip"
+				android:paddingBottom="4dip"
+				android:textSize="20sp"
+				/>
+		</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>

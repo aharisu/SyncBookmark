@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script>
+$(function () {
+	var name = localStorage["name"];
+	if(name) {
+		$('#name').val(name);
+
+		$('#cur_user').append("現在:" + name + "でログイン中です");
+	}
+});
+
+
+function auth() {
+	var name = $('#name').val();
+	var password = $('#password').val();
+
+	clearUser();
+
+	$.get("https://aharisu-syncbookmarks.appspot.com/reg?auth=true" +
+			"&name=" + name +
+			"&password=" + password,
+		function(data) {
+			var json = JSON.parse(data);
+			$('#status').text("");
+			if(json.status === "success") {
+				$('#status').append("認証成功");
+
+				$('#cur_user').append("現在:" + name + "でログイン中です");
+				localStorage["name"] = name;
+				localStorage["password"] = password;
+			} else {
+				$('#status').append("認証に失敗しました");
+			}
+		});
+}
+
+function clearUser() {
+	$('#cur_user').text("");
+	localStorage.removeItem("name");
+	localStorage.removeItem("password");
+}
+
+</script>
+<body>
+	<div id="cur_user"></div><br>
+	<form>
+		<pre>
+・ユーザ名とパスワードを入力してください
+name    :<input id="name" type="TEXT">
+passward:<input id="password" type="PASSWORD">
+<input onclick="auth()" type="button" value="  認証  ">
+		</pre>
+	</form>
+	<h1 id="status"></h1>
+</body>

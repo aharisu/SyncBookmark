@@ -8,10 +8,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import aharisu.tooks.SyncBookmarks.R;
+import aharisu.tools.SyncBookmarks.Data.BookmarkData;
+import aharisu.tools.SyncBookmarks.Data.User;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,6 +23,7 @@ import android.provider.Browser.BookmarkColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -38,8 +42,14 @@ public class SyncBookmarksActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        Preferences.setContext(getApplicationContext());
+        
+        
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        
         setContentView(R.layout.syncbookmarks);
         
+        //全てのブックマークを取得&設定
         GridView grid = (GridView)findViewById(R.id_syncbookmarks.layout);
         grid.setNumColumns(3);
         grid.setAdapter(createBookmarkListAdapter(getBookmarkData()));
@@ -49,6 +59,14 @@ public class SyncBookmarksActivity extends Activity {
         	}
 		});
         
+        
+        //タイトルバー設定
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.syncbookmarks_titlebar);
+        findViewById(R.id_syncbookmarks_titlebar.to_settings).setOnClickListener(new View.OnClickListener() {
+			@Override public void onClick(View v) {
+				startActivity(new Intent(SyncBookmarksActivity.this, UserAuthAndRegisterActivity.class));
+			}
+		});
     }
     
     List<BookmarkData> getBookmarkData() {
@@ -127,28 +145,47 @@ public class SyncBookmarksActivity extends Activity {
 		((ImageView)layout.findViewById(R.id_bookmarkdialog.thumbnail)).setImageBitmap(bookmark.Icon);
 		((TextView)layout.findViewById(R.id_bookmarkdialog.title)).setText(bookmark.Title);
 		((TextView)layout.findViewById(R.id_bookmarkdialog.url)).setText(bookmark.URL);
+		
+		final User user = Preferences.getUser();
     	
-    	new AlertDialog.Builder(context)
+    	AlertDialog.Builder builder = new AlertDialog.Builder(context)
     		.setTitle(R.string.send_bookmak)
     		.setView(layout)
-    		.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+    		.setNegativeButton(R.string.cansel, null);
+    	
+    	if(user != null) {
+    		builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 				@Override public void onClick(DialogInterface dialog, int which) {
-					sendToSernver(bookmark);
+					sendToSernver(user, bookmark);
 				}
-			})
-    		.setNegativeButton(R.string.cansel, null)
-    		.show();
+			});
+    	} else {
+    		builder.setPositiveButton(R.string.send_to_login, new DialogInterface.OnClickListener() {
+				@Override public void onClick(DialogInterface dialog, int which) {
+					startActivity(new Intent(SyncBookmarksActivity.this, UserAuthAndRegisterActivity.class));
+				}
+			});
+    	}
+    	
+		builder.show();
     }
     
-    private void sendToSernver(BookmarkData bookmark) {
-    	boolean success = false;
+    private void sendToSernver(User user, BookmarkData bookmark) {
     	try {
-    		String res = ServerCommunicator.sendBookmarkToServer(bookmark);
+    		String res = ServerCommunicator.sendBookmarkToServer(user, bookmark);
+    		
     		if(res != null) {
     			JSONObject obj = new JSONObject(res);
     			String status = obj.getString("status");
-    			if(status != null && status.equals("success")) {
-    				success = true;
+    			
+    			if(status != null) {
+    				if(status.equals("success")) {
+    					successSendBookmark();
+    					return;
+    				} else if(status.equals("unauthorized")){
+    					failureSendBookmarkResonAuth();
+    					return;
+    				}
     			}
     		}
     	} catch(IOException e) {
@@ -157,9 +194,29 @@ public class SyncBookmarksActivity extends Activity {
     		e.printStackTrace();
     	}
     	
-    	Toast.makeText(this, 
-    			success ? R.string.send_success : R.string.send_failure,
-    			success ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG).show();
+    	failureSendBookmarkResonUnknown();
     }
     
+    private void successSendBookmark() {
+    	Toast.makeText(this, R.string.send_success, Toast.LENGTH_SHORT).show();
+    }
+    
+    private void failureSendBookmarkResonAuth() {
+    	Toast.makeText(this, R.string.send_failure_reson_auth,Toast.LENGTH_LONG).show();
+    }
+    
+    private void failureSendBookmarkResonUnknown() {
+    	Toast.makeText(this, R.string.send_failure,Toast.LENGTH_LONG).show();
+    }
+    
+    @Override protected void onResume() {
+    	super.onResume();
+    	
+        User user = Preferences.getUser();
+        
+        ((TextView)findViewById(R.id_syncbookmarks_titlebar.title)).setText(
+        		user == null ?
+        				getResources().getText(R.string.title_not_login) :
+        				String.format(getResources().getText(R.string.title_logined).toString(), user.name));
+    }
 }
